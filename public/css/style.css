@@ -1,0 +1,43 @@
+body {
+  z-index: 0;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+}
+.menu {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -36px;
+  z-index: 3;
+  display: none;
+}
+.menu div {
+  display: inline-block;
+  cursor: pointer;
+}
+.widget {
+  position: absolute;
+  z-index: 0;
+  min-height: 50px;
+  min-width: 50px;
+  overflow: hidden;
+}
+.widget.root {
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+}
+.widget:hover {
+  z-index: 2;
+}
+.widget:hover .menu {
+  z-index: 3;
+  display: block;
+}
+.dragresize {
+  position: absolute;
+}

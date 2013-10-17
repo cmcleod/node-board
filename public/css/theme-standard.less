@@ -1,0 +1,93 @@
+@import "elements.less";
+
+@text: #888;
+@attention: #444;
+@highlight: #888;
+@bg: #000;
+@backgroundBright: #191919;
+@link: #00B7FF;
+@confirm:#191;
+@error:#D00;
+
+body {
+	margin: 0;
+	background-color: @bg;
+	color: @text;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+
+#resizable { width: 150px; height: 150px; padding: 0.5em; }
+  #resizable h3 { text-align: center; margin: 0; }
+
+a {
+	color: #00B7FF;
+}
+
+.menu {
+	font-size: 1.2em;
+	line-height: 1.2em;
+	border: 1px solid none;
+	margin-top: -1px;
+	padding: 0 15px;
+	height: 1.2em;
+	text-align: center;
+	background-color: @backgroundBright;
+	.border-radius(0,15px,15px,0);
+
+	div {
+		display:inline-block;
+		color: @attention;
+		width:20px;
+		height:100%;
+
+		&:hover {
+			color: @link;
+		}
+
+		&.delete:hover {
+			color: @error;
+		}
+
+		&.add:hover {
+			color: @confirm;
+		}
+	}
+}
+
+.widget {
+	background-color: @bg;
+
+	&.root {
+		background-color: @bg;
+	}
+
+	&:hover {
+		outline: 1px solid @backgroundBright;	
+	}
+
+	&.selected {
+		outline: 1px solid @highlight;	
+	}
+}
+
+
+.dragresize {
+ width: 10px;
+ height: 10px;
+ border: 1px solid @attention;
+}
+
+
+.dragresize-tl {
+ top: 0;
+ left: 0;
+ cursor: nw-resize;
+}
+
+.dragresize-br {
+ bottom: 0;
+ right: 0;
+ cursor: se-resize;
+}
+

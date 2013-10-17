@@ -1,0 +1,1 @@
+{"type":"ContainerWidget","widgets":[{"type":"ContainerWidget","maximized":false,"width":600,"height":600,"x":100,"y":100,"widgets":[{"type":"HtmlWidget","maximized":false,"width":200,"height":200,"x":10,"y":10,"html":"<h1>Hello</h1>"},{"type":"HtmlWidget","maximized":false,"width":200,"height":200,"x":10,"y":300,"html":"<h1>Hello</h1>"}]}]}

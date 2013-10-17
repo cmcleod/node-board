@@ -1,0 +1,15 @@
+doctype 5
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/css/style.css')
+		link(rel='stylesheet', href='/css/theme-#{theme}.css')
+	body(onload='boot()')
+		block content
+
+		script(src='/js/dragresize.js',type='text/javascript')
+		script(src='/socket.io/socket.io.js',type='text/javascript')
+		script(src='/js/widgets/widget.js',type='text/javascript')
+		script(src='/js/widgets/html.js',type='text/javascript')
+		script(src='/js/widgets/container.js',type='text/javascript')
+		script(src='/js/main.js',type='text/javascript')
