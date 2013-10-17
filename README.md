@@ -1,4 +1,4 @@
-Where in the World
+Node-Board
 ===========================
 
 Setting up
