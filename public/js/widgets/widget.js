@@ -2,10 +2,14 @@
 function Widget(parent, opts){
   opts = opts || {};
   this.parent = parent;
+
   this.elem = document.createElement('div');
   this.style = this.elem.style;
   this.classes = this.elem.classList;
   this.classes.add('widget');
+  this.body = document.createElement('div');
+  this.body.classList.add('widget-body');
+  this.elem.appendChild(this.body);
   
   this.moveable = false;
   this.dragging = false;
@@ -33,26 +37,32 @@ function Widget(parent, opts){
       }
       e.stopPropagation();
     }.bind(this));
-  }
-  
-  this.buildMenu();
-  this.resize();
 
+    this.buildMenu();
+    this.resize();
+  }
 }
 
 Widget.prototype.buildMenu = function() {
-  var menu = document.createElement('div');
+  var self = this;
+  var menu = document.createElement('div'), e;
   this.menu = menu;
   menu.classList.add('menu');
-  menu.innerHTML += '<div class="add">&#10011;</div>';
-  menu.innerHTML += '<div class="edit">✎</div>';
+  //menu.innerHTML += '<div class="add">&#10011;</div>';
+  //menu.innerHTML += '<div class="edit">✎</div>';
   if(!this.isRoot()){
-    if(this.maximized){
-      menu.innerHTML = '<div class="minimize">m</div>' + menu.innerHTML;
-    } else {
-      menu.innerHTML = '<div class="maximize">M</div>' + menu.innerHTML;
-    }
-    menu.innerHTML += '<div class="delete">✕</div>';
+    e = document.createElement('div');
+    e.innerHTML = (this.maximized)? 'm' : 'M';
+    e.addEventListener('click', function(){
+        self.maximized = !self.maximized;
+        self.resize();
+        this.innerHTML = (self.maximized)? 'm' : 'M';
+    });
+    menu.appendChild(e);
+    e = document.createElement('div');
+    e.innerHTML = '✕';
+    e.addEventListener('click', this.confirmDelete.bind(this));
+    menu.appendChild(e);
   }
   this.elem.appendChild(menu);
 };
@@ -71,19 +81,29 @@ Widget.prototype.isRoot = function() {
   return this.parent === null;
 };
 
-Widget.prototype.delete = function() {
-  if(!this.isRoot()){
-    // Remove any even listeners, stop all timeouts
-    this.parent.deleteWidget(this);
-  }
-};
-
 Widget.prototype.confirmDelete = function() {
-  //his.clearElem();
+  var del = document.createElement('div'),
+      cncl = document.createElement('div');
+  del.className = 'btn delete';
+  del.innerHTML = 'Delete';
+  cncl.className = 'btn cancel';
+  cncl.innerHTML = 'Cancel';
+
+  cncl.addEventListener('click', function() {
+    this.elem.removeChild(cncl);
+    this.elem.removeChild(del);
+    this.body.style.display = null;
+    this.menu.style.display = null;
+  }.bind(this));
+
+  del.addEventListener('click', function() {
+    this.parent.deleteWidget(this);
+  }.bind(this));
   
-  // Add Delete Button
-  // Add Cancel Button
-  // Add event call backs
+  this.body.style.display = 'none';
+  this.menu.style.display = 'none';
+  this.elem.appendChild(del);
+  this.elem.appendChild(cncl);
 };
 
 Widget.prototype.getElem = function() {
@@ -146,8 +166,7 @@ Widget.prototype.settings = function() {
 
 
 
-var dragresize = new DragResize('dragresize',
- { minWidth: 150, minHeight: 50, minLeft: 0, minTop: 0, maxLeft: 1000, maxTop: 1000 });
+var dragresize = new DragResize('dragresize',{ minWidth: 150, minHeight: 50, minLeft: 0, minTop: 0, maxLeft: 1000, maxTop: 1000 });
 
 // Optional settings/properties of the DragResize object are:
 //  enabled: Toggle whether the object is active.

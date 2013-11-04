@@ -1,93 +1,155 @@
 @import "elements.less";
 
-@text: #888;
-@attention: #444;
-@highlight: #888;
+@handleSize: 12px;
+
 @bg: #000;
-@backgroundBright: #191919;
-@link: #00B7FF;
-@confirm:#191;
+@foreground: #FFF;
+@subtle: #666;
+
+@info: #0084FF;
+@warning: orange;
+@highlight: #222;
+@success:#191;
 @error:#D00;
 
 body {
 	margin: 0;
 	background-color: @bg;
-	color: @text;
+	color: @foreground;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+body.active {
+	.widget {
+		&:hover {
+			outline: 1px solid @highlight;	
+		}
 
-#resizable { width: 150px; height: 150px; padding: 0.5em; }
-  #resizable h3 { text-align: center; margin: 0; }
+		&.selected {
+			outline: 1px solid @info;	
+
+			.dragresize {
+				background-color: @info;
+			}
+		}
+	}
+
+	.dragresize {
+	 	&:hover {
+	 		background-color: @info;
+	 	}
+	}
+
+	.dragresize {
+	 width: @handleSize;
+	 height: @handleSize;
+	 background-color: @highlight;
+	 .border-radius(calc(@handleSize / 2),calc(@handleSize / 2),calc(@handleSize / 2),calc(@handleSize / 2));
+
+	 	&:hover {
+	 		background-color: @info;
+	 	}
+	}
+}
+
 
 a {
-	color: #00B7FF;
+	color: @info;
 }
 
 .menu {
-	font-size: 1.2em;
-	line-height: 1.2em;
-	border: 1px solid none;
-	margin-top: -1px;
-	padding: 0 15px;
-	height: 1.2em;
-	text-align: center;
-	background-color: @backgroundBright;
-	.border-radius(0,15px,15px,0);
+		font-size: 1.2em;
+		line-height: 1.2em;
+		border-left: 1px dotted @info;
+		border-bottom: 1px dotted @info;
 
-	div {
-		display:inline-block;
-		color: @attention;
-		width:20px;
-		height:100%;
+		padding: 0 5px ;
+		height: 1.2em;
+		text-align: center;
+		//.border-radius(0,0,8px,0);
 
-		&:hover {
-			color: @link;
-		}
+		div {
+			display:inline-block;
+			color: @subtle;
+			width:20px;
+			height:100%;
 
-		&.delete:hover {
-			color: @error;
-		}
+			&:hover {
+				color: @info;
+			}
 
-		&.add:hover {
-			color: @confirm;
+			&.delete:hover {
+				color: @error;
+			}
+
+			&.add:hover {
+				color: @success;
+			}
 		}
 	}
-}
 
 .widget {
 	background-color: @bg;
 
 	&.root {
-		background-color: @bg;
+
 	}
 
-	&:hover {
-		outline: 1px solid @backgroundBright;	
-	}
-
-	&.selected {
-		outline: 1px solid @highlight;	
-	}
 }
 
+.btn {
+	color: @foreground;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 20px;
+	padding: 6px 0px;
+	text-align: center;
+	width: 100px;
+	cursor: pointer;
+	margin-left: -50px;
 
-.dragresize {
- width: 10px;
- height: 10px;
- border: 1px solid @attention;
+	&.cancel {
+		margin-top: 5px;
+		background-color: @highlight;
+	}
+
+	&.delete {
+		margin-top: -35px;
+		background-color: @error;
+	}
 }
-
 
 .dragresize-tl {
- top: 0;
- left: 0;
+ top: -5px;
+ left: -5px;
  cursor: nw-resize;
 }
 
 .dragresize-br {
- bottom: 0;
- right: 0;
+ bottom: -5px;
+ right: -5px;
  cursor: se-resize;
+}
+
+
+.notification {
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	color: @foreground;
+}
+
+.error {
+	background-color: @error;
+}
+
+.success {
+	background-color: @success;
+}
+
+.warning {
+	background-color: @warning;
 }
 

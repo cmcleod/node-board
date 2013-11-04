@@ -1,44 +1,42 @@
+var TO_INAC = 15000;
 
 function boot(){
-  window.socket = io.connect(window.location.origin); // Establish Web Socket connection
+  var nb = window.nb = new NodeBoard();
+  nb.setupConnection();
+  nb.addWidgetTypes(availableWidgets)
+  nb.load();
+  startInactivityListener();
+}
 
-  socket.on('settings', function (data) {
-    localStorage.clear();
-    localStorage.setItem(data.name,data.settings);
-    window.boardName = data.name;
-    buildWidgets(data.settings);   // Load settings then Build widgets
+function startInactivityListener(e){
+  var d = new Date();
+  window.active = true;
+  document.body.classList.add('active');
+  window.lastActivity = d.getTime();
+  window.lastPos = {x: 0, y: 0};
+
+  document.addEventListener('mousemove', function (e){
+    if(e.pageX != window.lastPos.x && e.pageY != window.lastPos.y){
+      window.lastPos.x = e.pageX;
+      window.lastPos.y = e.pageY;
+      window.lastActivity = (new Date()).getTime();
+      if (!window.active) {
+        window.active = true;
+        document.body.classList.add('active');
+      }
+    }
   });
-  window.socket.emit('load', {name: window.boardName});
+  setTimeout(checkActivity, TO_INAC);
 }
-
-function buildWidgets(settings){
-  var oldRoot = window.rootWidget;
-  window.rootWidget = createWidget(null, settings);
-  if(oldRoot) document.body.removeChild(oldRoot);
-  document.body.appendChild(window.rootWidget.getElem());
-}
-
-function createWidget(parent,settings){
-  var fn = window[settings.type];
-  if(typeof fn === 'function'){
-    var widget = new fn(parent,settings);
-    if(settings.widgets)
-      for(var i = 0; i < settings.widgets.length; i++)
-        createWidget(widget,settings.widgets[i]);
-    
-    return widget;
+  
+function checkActivity(){
+  if (!window.editing && window.lastActivity + TO_INAC < (new Date()).getTime()) {
+    if (window.active) {
+      window.active = false;
+      document.body.classList.remove('active');
+    } 
   }
-  else {
-    console.log('create widget error', parent, settings);
-    return null;
-  }
+  setTimeout(checkActivity, TO_INAC);
 }
 
-function saveSettings(){
-  var settings = window.rootWidget.settings();
-  localStorage.setItem(window.boardName,settings);
 
-  if (window.socket) {
-    window.socket.emit('save', {settings: settings});
-  }
-}

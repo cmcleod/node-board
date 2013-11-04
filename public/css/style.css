@@ -5,12 +5,12 @@ body {
   -ms-user-select: none;
   user-select: none;
   overflow: hidden;
+  cursor: none;
 }
 .menu {
   position: absolute;
   top: 0;
-  left: 50%;
-  margin-left: -36px;
+  right: 0;
   z-index: 3;
   display: none;
 }
@@ -23,6 +23,11 @@ body {
   z-index: 0;
   min-height: 50px;
   min-width: 50px;
+}
+.widget .widget-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 .widget.root {
@@ -31,13 +36,23 @@ body {
   bottom: 0px;
   right: 0px;
 }
-.widget:hover {
-  z-index: 2;
+body.active {
+  cursor: default;
 }
-.widget:hover .menu {
+body.active .widget.selected > .menu {
   z-index: 3;
   display: block;
 }
+body.active .widget:hover {
+  z-index: 2;
+}
 .dragresize {
   position: absolute;
+}
+#notification-area {
+  width: 100%;
+  z-index: 4;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

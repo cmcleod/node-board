@@ -7,12 +7,12 @@ ContainerWidget.prototype = Object.create(Widget.prototype, {constructor: {value
 
 ContainerWidget.prototype.addWidget = function(widget) {
   this.widgets.push(widget);
-  this.elem.appendChild(widget.getElem());
+  this.body.appendChild(widget.getElem());
 };
 
 ContainerWidget.prototype.deleteWidget = function(widget) {
-  delete this.widgets[widget.id];
-  this.elem.removeChild(widget.getElem());
+  this.widgets.removeItem(widget);
+  this.body.removeChild(widget.getElem());
 };
 
 ContainerWidget.prototype.settings = function() {
@@ -28,3 +28,9 @@ ContainerWidget.prototype.settings = function() {
 
   return s;
 };
+
+registerWidget(
+  ContainerWidget,
+  'Container',
+  'A container widget that contains widgets of any other type'
+);

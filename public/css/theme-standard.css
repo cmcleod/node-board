@@ -7,54 +7,64 @@
 body {
   margin: 0;
   background-color: #000000;
-  color: #888888;
+  color: #ffffff;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-#resizable {
-  width: 150px;
-  height: 150px;
-  padding: 0.5em;
+body.active .widget:hover {
+  outline: 1px solid #222222;
 }
-#resizable h3 {
-  text-align: center;
-  margin: 0;
+body.active .widget.selected {
+  outline: 1px solid #0084ff;
 }
-a {
-  color: #00B7FF;
+body.active .widget.selected .dragresize {
+  background-color: #0084ff;
 }
-.menu {
-  font-size: 1.2em;
-  line-height: 1.2em;
-  border: 1px solid none;
-  margin-top: -1px;
-  padding: 0 15px;
-  height: 1.2em;
-  text-align: center;
-  background-color: #191919;
-  -webkit-border-top-right-radius: 0;
-  -webkit-border-bottom-right-radius: 15px;
-  -webkit-border-bottom-left-radius: 15px;
-  -webkit-border-top-left-radius: 0;
-  -moz-border-radius-topright: 0;
-  -moz-border-radius-bottomright: 15px;
-  -moz-border-radius-bottomleft: 15px;
-  -moz-border-radius-topleft: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-top-left-radius: 0;
+body.active .dragresize:hover {
+  background-color: #0084ff;
+}
+body.active .dragresize {
+  width: 12px;
+  height: 12px;
+  background-color: #222222;
+  -webkit-border-top-right-radius: calc(6px);
+  -webkit-border-bottom-right-radius: calc(6px);
+  -webkit-border-bottom-left-radius: calc(6px);
+  -webkit-border-top-left-radius: calc(6px);
+  -moz-border-radius-topright: calc(6px);
+  -moz-border-radius-bottomright: calc(6px);
+  -moz-border-radius-bottomleft: calc(6px);
+  -moz-border-radius-topleft: calc(6px);
+  border-top-right-radius: calc(6px);
+  border-bottom-right-radius: calc(6px);
+  border-bottom-left-radius: calc(6px);
+  border-top-left-radius: calc(6px);
   -moz-background-clip: padding-box;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+body.active .dragresize:hover {
+  background-color: #0084ff;
+}
+a {
+  color: #0084ff;
+}
+.menu {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  border-left: 1px dotted #0084ff;
+  border-bottom: 1px dotted #0084ff;
+  padding: 0 5px ;
+  height: 1.2em;
+  text-align: center;
+}
 .menu div {
   display: inline-block;
-  color: #444444;
+  color: #666666;
   width: 20px;
   height: 100%;
 }
 .menu div:hover {
-  color: #00b7ff;
+  color: #0084ff;
 }
 .menu div.delete:hover {
   color: #dd0000;
@@ -65,27 +75,49 @@ a {
 .widget {
   background-color: #000000;
 }
-.widget.root {
-  background-color: #000000;
+.btn {
+  color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 20px;
+  padding: 6px 0px;
+  text-align: center;
+  width: 100px;
+  cursor: pointer;
+  margin-left: -50px;
 }
-.widget:hover {
-  outline: 1px solid #191919;
+.btn.cancel {
+  margin-top: 5px;
+  background-color: #222222;
 }
-.widget.selected {
-  outline: 1px solid #888888;
-}
-.dragresize {
-  width: 10px;
-  height: 10px;
-  border: 1px solid #444444;
+.btn.delete {
+  margin-top: -35px;
+  background-color: #dd0000;
 }
 .dragresize-tl {
-  top: 0;
-  left: 0;
+  top: -5px;
+  left: -5px;
   cursor: nw-resize;
 }
 .dragresize-br {
-  bottom: 0;
-  right: 0;
+  bottom: -5px;
+  right: -5px;
   cursor: se-resize;
+}
+.notification {
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  color: #ffffff;
+}
+.error {
+  background-color: #dd0000;
+}
+.success {
+  background-color: #119911;
+}
+.warning {
+  background-color: #ffa500;
 }
